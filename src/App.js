@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AvailableNumbers from "./components/AvailableNumbers";
+import FormData from "./components/FormData";
+import Resume from "./components/Resume";
+import Footer from "./components/Footer";
+import Step3 from "./components/Step3";
 
 function App() {
+  const [step, setStep] = useState(1);
+  const [dataFilled, setDataFilled] = useState();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <Resume />
+        {step === 1 ? (
+          <AvailableNumbers setStep={setStep} setDataFilled={setDataFilled} />
+        ) : null}
+        {step === 2 ? (
+          <FormData
+            setStep={setStep}
+            setDataFilled={setDataFilled}
+            dataFilled={dataFilled}
+          />
+        ) : null}
+        {step === 3 ? (
+          <Step3 setStep={setStep} dataFilled={dataFilled} />
+        ) : null}
+      </div>
+      <Footer />
     </div>
   );
 }
